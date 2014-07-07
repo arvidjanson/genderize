@@ -4,7 +4,7 @@ describe User do
   
   describe "gender" do
     
-    let(:user) { User.new(gender: "f") }
+    let(:user) { User.new(gender: "female") }
       
     it "should return a Gender object" do
       user.gender.should be_an_instance_of(Gender)
@@ -15,7 +15,7 @@ describe User do
     end
     
     it "should be male when changed" do
-      user.gender = "m"
+      user.gender = "male"
       user.gender.should be_male
     end
     
@@ -33,7 +33,7 @@ describe User do
   # test this behaviour
   describe "name" do
     
-    let(:user) { User.new(name: "f", gender: "f") }
+    let(:user) { User.new(name: "female", gender: "female") }
     
     it "should return a Gender object" do
       user.name.should be_an_instance_of Gender
@@ -42,12 +42,12 @@ describe User do
     it "should change the name column" do
       user.save!
       user = User.last
-      user.name.should == "f"
+      user.name.should == "female"
       user.name.should be_female
     end
     
     it "should not change the gender column" do
-      user.name = "m"
+      user.name = "male"
       user.name.should be_male
       user.gender.should_not be_male
     end
