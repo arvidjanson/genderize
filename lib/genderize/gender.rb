@@ -43,6 +43,10 @@ module Genderize
     def female?
       abbr == 'f'
     end
+
+    def unknown?
+      abbr.blank?
+    end
   
     def to_s
       abbr
@@ -58,6 +62,7 @@ module Genderize
       case
       when male? then I18n.t("genderize.#{key}.masculine")
       when female? then I18n.t("genderize.#{key}.feminine")
+      when unknown? then I18n.t("genderize.#{key}.unknown")
       else
         nil
       end

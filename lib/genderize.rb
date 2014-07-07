@@ -25,12 +25,7 @@ module Genderize
         if value = instance_variable_get("@#{col_name}")
           return value
         end
-        read_value = read_attribute(col_name)
-        if read_value.blank?
-          return read_value
-        else
-          instance_variable_set("@#{col_name}", Genderize::Gender.new(read_attribute(col_name)))
-        end
+        instance_variable_set("@#{col_name}", Genderize::Gender.new(read_attribute(col_name)))
       end
       
       # Writes to the DB column the new value for the gender attribute
@@ -45,12 +40,7 @@ module Genderize
           raise ArgumentError, "Gender must be a single alphanumeric character" 
         end
         write_attribute(col_name, string)
-        
-        if string.blank?
-          instance_variable_set("@#{col_name}", string)
-        else
-          instance_variable_set("@#{col_name}", Genderize::Gender.new(read_attribute(col_name)))
-        end
+        instance_variable_set("@#{col_name}", Genderize::Gender.new(read_attribute(col_name)))
       end
       
     end
