@@ -35,11 +35,14 @@ module Genderize
       #
       # Raises ArgumentError if gender is not a single alphanumeric character "m" or "f"
       define_method "#{col_name}=" do |string|
-        string = string.to_s.first
-        unless string.blank? or string.to_s =~ /\A(m|f)\Z/i
-          raise ArgumentError, "Gender must be a single alphanumeric character" 
+        unless string.blank? or string.to_s =~ /\A(male|female)\Z/i
+          raise ArgumentError, "Gender must be either 'male' or 'female'"
         end
-        write_attribute(col_name, string)
+        if string.blank?
+          write_attribute(col_name, nil)
+        else
+          write_attribute(col_name, string)
+        end
         instance_variable_set("@#{col_name}", Genderize::Gender.new(read_attribute(col_name)))
       end
       

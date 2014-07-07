@@ -6,10 +6,10 @@ module Genderize
     attr_reader :abbr
     
     def initialize(abbr)
-      unless abbr.blank? or abbr.to_s =~ /\A(f|m|female|male)\Z/i
-        raise "Invalid abbreviation: '#{abbr}'" 
+      unless abbr.blank? or abbr.to_s =~ /\A(male|female)\Z/i
+        raise "Invalid abbreviation: '#{abbr}'"
       end
-      @abbr = abbr.blank? ? nil : abbr.to_s.first.downcase
+      @abbr = abbr.to_s.downcase
     end
     
     def name
@@ -37,11 +37,11 @@ module Genderize
     end
   
     def male?
-      abbr == 'm'
+      abbr == 'male'
     end
   
     def female?
-      abbr == 'f'
+      abbr == 'female'
     end
 
     def unknown?

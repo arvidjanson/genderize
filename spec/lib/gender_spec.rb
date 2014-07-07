@@ -2,15 +2,15 @@ require "spec_helper"
 
 describe Genderize::Gender do
   
-  let(:female) { Gender.new("f") }
-  let(:male) { Gender.new("M") }  
+  let(:female) { Gender.new("female") }
+  let(:male) { Gender.new("male") }
   let(:unknown) { Gender.new('') }
   
   context "when full gender name is used" do
     
     it "should find the correct abbreviation" do
-      Gender.new("female").abbr.should eql('f')
-      Gender.new("male").abbr.should eql('m')
+      Gender.new("female").abbr.should eql('female')
+      Gender.new("male").abbr.should eql('male')
     end
     
   end
@@ -49,24 +49,24 @@ describe Genderize::Gender do
   
     context "when male" do
       
-      it "should be 'm'" do
-        male.abbr.should eql("m")
+      it "should be 'male'" do
+        male.abbr.should eql("male")
       end
       
     end
 
     context "when female" do
       
-      it "should be 'f'" do
-        female.abbr.should eql("f")
+      it "should be 'female'" do
+        female.abbr.should eql("female")
       end
       
     end
     
     context "when unknown" do
       
-      it "should be nil" do
-        unknown.abbr.should be_nil
+      it "should be empty string" do
+        unknown.abbr.should eql("")
       end
       
     end
