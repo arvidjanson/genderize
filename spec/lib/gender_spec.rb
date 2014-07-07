@@ -195,12 +195,13 @@ describe Genderize::Gender do
     it "should equal the abbr value" do
       male.to_s.should eql(male.abbr)
       female.to_s.should eql(female.abbr)
-      unknown.to_s.should be_nil      
+      unknown.to_s.should eql(unknown.abbr)
     end
     
     it "returns a string" do
       male.to_s.should be_an_instance_of(String)
       female.to_s.should be_an_instance_of(String)            
+      unknown.to_s.should be_an_instance_of(String)            
     end
     
   end
@@ -217,8 +218,8 @@ describe Genderize::Gender do
   describe :== do
     
     it "should return true if passed abbr value" do
-      (male == "m").should be_truthy
-      (female == "f").should be_truthy 
+      (male == "male").should be_truthy
+      (female == "female").should be_truthy 
       (unknown == nil).should be_truthy    
     end
 
