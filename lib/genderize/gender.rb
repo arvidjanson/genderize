@@ -7,9 +7,10 @@ module Genderize
     
     def initialize(abbr)
       unless abbr.blank? or abbr.to_s =~ /\A(male|female)\Z/i
-        raise "Invalid abbreviation: '#{abbr}'"
+        @abbr = "invalid"
+      else
+        @abbr = abbr.to_s.downcase
       end
-      @abbr = abbr.to_s.downcase
     end
     
     def name
@@ -48,6 +49,14 @@ module Genderize
       abbr.blank?
     end
   
+    def invalid?
+      abbr == "invalid"
+    end
+
+    def valid?
+      not invalid?
+    end
+
     def to_s
       abbr
     end
@@ -62,7 +71,7 @@ module Genderize
       case
       when male? then I18n.t("genderize.#{key}.masculine")
       when female? then I18n.t("genderize.#{key}.feminine")
-      when unknown? then I18n.t("genderize.#{key}.unknown")
+      when unknown?, invalid? then I18n.t("genderize.#{key}.unknown")
       else
         nil
       end

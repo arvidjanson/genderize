@@ -31,13 +31,8 @@ module Genderize
       # Writes to the DB column the new value for the gender attribute
       # Sets the instance varaible value too
       #
-      # string - A String indicating the gender. Must be either 'm', "M", 'f' or "F".
-      #
-      # Raises ArgumentError if gender is not a single alphanumeric character "m" or "f"
+      # string - A String indicating the gender.
       define_method "#{col_name}=" do |string|
-        unless string.blank? or string.to_s =~ /\A(male|female)\Z/i
-          raise ArgumentError, "Gender must be either 'male' or 'female'"
-        end
         if string.blank?
           write_attribute(col_name, nil)
         else
