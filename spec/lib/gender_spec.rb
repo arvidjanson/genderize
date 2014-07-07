@@ -4,7 +4,7 @@ describe Genderize::Gender do
   
   let(:female) { Gender.new("f") }
   let(:male) { Gender.new("M") }  
-  let(:blank) { Gender.new('') }
+  let(:unknown) { Gender.new('') }
   
   context "when full gender name is used" do
     
@@ -34,10 +34,10 @@ describe Genderize::Gender do
       
     end
     
-    context "when blank" do
+    context "when unknown" do
       
-      it "should be nil" do
-        blank.name.should be_nil
+      it "should be unknown" do
+        unknown.name.should eql("unknown")
       end
       
     end
@@ -63,10 +63,10 @@ describe Genderize::Gender do
       
     end
     
-    context "when blank" do
+    context "when unknown" do
       
       it "should be nil" do
-        blank.abbr.should be_nil
+        unknown.abbr.should be_nil
       end
       
     end
@@ -92,10 +92,10 @@ describe Genderize::Gender do
       
     end
     
-    context "when blank" do
+    context "when unknown" do
       
       it "should be nil" do
-        blank.subject.should be_nil
+        unknown.subject.should eql("they")
       end
       
     end
@@ -120,10 +120,10 @@ describe Genderize::Gender do
       
     end
 
-    context "when blank" do
+    context "when unknown" do
       
       it "should be nil" do
-        blank.object.should be_nil
+        unknown.object.should eql("them")
       end
       
     end
@@ -149,10 +149,10 @@ describe Genderize::Gender do
       
     end
     
-    context "when blank" do
+    context "when unknown" do
       
       it "should be nil" do
-        blank.possessive.should be_nil
+        unknown.possessive.should eql("their")
       end
       
     end
@@ -179,10 +179,10 @@ describe Genderize::Gender do
       
     end
     
-    context "when blank" do
+    context "when unknown" do
       
       it "should be nil" do
-        blank.casual.should be_nil
+        unknown.casual.should eql("person")
       end
       
     end
@@ -194,12 +194,13 @@ describe Genderize::Gender do
     
     it "should equal the abbr value" do
       male.to_s.should eql(male.abbr)
-      female.to_s.should eql(female.abbr)      
+      female.to_s.should eql(female.abbr)
+      unknown.to_s.should be_nil      
     end
     
     it "returns a string" do
       male.to_s.should be_an_instance_of(String)
-      female.to_s.should be_an_instance_of(String)      
+      female.to_s.should be_an_instance_of(String)            
     end
     
   end
@@ -216,15 +217,15 @@ describe Genderize::Gender do
   describe :== do
     
     it "should return true if passed abbr value" do
-      (male == "m").should be_true
-      (female == "f").should be_true 
-      (blank == nil).should be_true     
+      (male == "m").should be_truthy
+      (female == "f").should be_truthy 
+      (unknown == nil).should be_truthy    
     end
 
     it "should return false if not passed abbr value" do
-      (male == "f").should be_false
-      (female == 1).should be_false
-      (blank == "$").should be_false           
+      (male == "f").should be_falsey
+      (female == 1).should be_falsey
+      (unknown == "$").should be_falsey           
     end
     
   end
